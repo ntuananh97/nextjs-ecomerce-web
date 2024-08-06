@@ -1,17 +1,21 @@
 import themeConfigs from '@/configs/themeConfig';
-import { TLayout, TMode, TThemeColor } from '@/types/layouts';
+import { Skin, TLayout, TMode, TThemeColor } from '@/types/layouts';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type Settings = {
     mode: TMode;
     themeColor: TThemeColor;
     layout: TLayout;
+    skin: Skin
+
 };
 
 const initialSettings: Settings = {
     themeColor: 'primary',
     mode: themeConfigs.mode,
-    layout: themeConfigs.layout
+    layout: themeConfigs.layout,
+    skin: themeConfigs.skin,
+
   }
 
 export type SettingsContextType = {
@@ -47,5 +51,6 @@ export const useSettingsContext = () => {
   if (context === undefined) {
     throw new Error('useSettingsContext must be used within a SettingsProvider');
   }
-  return context;
+  
+return context;
 };

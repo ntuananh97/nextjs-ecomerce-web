@@ -1,7 +1,22 @@
 import Head from "next/head";
-import Button from '@mui/material/Button';
+import { useEffect } from "react";
+import axiosInstance from "@/apis";
+import {  useTheme } from "@mui/material";
+import TextField from "@/components/TextField";
 
 export default function Home() {
+
+  const theme = useTheme()
+  console.log("Home ~ theme:", theme)
+
+  useEffect(() => {
+    console.log("useEffect ~ process.env.BASE_URL:", process.env)
+
+    axiosInstance.get('/users').then(res => console.log('res', res)
+    ).catch(() => {})
+  }, [])
+  
+
   return (
     <>
       <Head>
@@ -11,7 +26,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <Button variant="contained">Hello world</Button>;
+      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
       </main>
     </>
   );

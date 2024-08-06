@@ -5,8 +5,10 @@ import { ReactNode } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 import { Settings } from '@/contexts/settingsContext'
-import themeConfigs from '@/configs/themeConfig'
+// import themeConfigs from '@/configs/themeConfig'
 import themeOptions from './ThemeOptions'
+import { GlobalStyles } from '@mui/material'
+import GlobalStyling from './globalStyles'
 
 
 
@@ -20,7 +22,7 @@ const ThemeComponent = (props: Props) => {
   const { settings, children } = props
 
   // ** Pass merged ThemeOptions (of core and user) to createTheme function
-  let theme = createTheme(themeOptions(settings, 'light'))
+  const theme = createTheme(themeOptions(settings, 'light'))
 
   // ** Set responsive font sizes to true
 //   if (themeConfigs.responsiveFontSizes) {
@@ -30,7 +32,7 @@ const ThemeComponent = (props: Props) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <GlobalStyles styles={() => GlobalStyling(theme) as any} /> */}
+      <GlobalStyles styles={() => GlobalStyling(theme) as any} />
       {children}
     </ThemeProvider>
   )
