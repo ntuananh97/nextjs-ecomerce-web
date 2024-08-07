@@ -7,19 +7,19 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  Link,
   TextField,
   Typography,
 } from "@mui/material";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NextPage } from "next";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { EMAIL_REG, PASSWORD_REG } from "@/configs/regex";
-
+import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {}
 
@@ -29,12 +29,20 @@ type FormData = {
 };
 
 const validationSchema = yup.object({
-  email: yup.string().required("Required").matches(EMAIL_REG, 'Please type correct email format!'),
-  password: yup.string().required("Required").matches(PASSWORD_REG, 'The password must be at least 6 characters long and include uppercase letters, lowercase letters, numbers, and special characters.'),
+  email: yup
+    .string()
+    .required("Required")
+    .matches(EMAIL_REG, "Please type correct email format!"),
+  password: yup
+    .string()
+    .required("Required")
+    .matches(
+      PASSWORD_REG,
+      "The password must be at least 6 characters long and include uppercase letters, lowercase letters, numbers, and special characters."
+    ),
 });
 
 const LoginPage: NextPage<IProps> = () => {
-
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -55,10 +63,8 @@ const LoginPage: NextPage<IProps> = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-
   return (
     <Container component="main" maxWidth="xs">
-      {/* <CssBaseline /> */}
       <Box
         sx={{
           marginTop: 8,
@@ -114,20 +120,22 @@ const LoginPage: NextPage<IProps> = () => {
                 onChange={onChange}
                 value={value}
                 autoComplete="current-password"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 fullWidth
                 error={Boolean(errors?.password)}
                 helperText={errors?.password?.message}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 }}
               />
             )}
@@ -148,16 +156,53 @@ const LoginPage: NextPage<IProps> = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/register">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
+        </Box>
+
+        <Box sx={{ width: "100%" }} className="login__seperate-line">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "30px",
+              justifyContent: "center",
+            }}
+          >
+            <Box className="login__seperate-line__bar" />
+            <Box
+              component="p"
+            >
+              Or
+            </Box>
+            <Box className="login__seperate-line__bar" />
+
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              marginTop: "15px",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              src="/svgs/facebook.svg"
+              alt="Facebook"
+              width={30}
+              height={30}
+            />
+            <Image src="/svgs/google.svg" alt="Google" width={30} height={30} />
+          </Box>
         </Box>
       </Box>
       {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
